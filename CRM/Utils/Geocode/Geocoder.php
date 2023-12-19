@@ -85,7 +85,8 @@ class CRM_Utils_Geocode_Geocoder {
     }
     self::setGeocoders();
     // AFAIK only 2 char string accepted - from the examples.
-    $locale = substr(CRM_Utils_System::getUFLocale(), 0, 2);
+    // Unit tests don't seem to have a UFLocale set so fallback to lcMessages
+    $locale = substr(CRM_Utils_System::getUFLocale() ?? \Civi::settings()->get('lcMessages'), 0, 2);
     $messageOnFail = NULL;
 
     foreach (self::$geoCoders as $geocoder) {
